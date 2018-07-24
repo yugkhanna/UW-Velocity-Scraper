@@ -9,6 +9,7 @@ This is a script I wrote to minimize the time required to collect data manually 
 **Environment Setup**
 
 `$ pip3 install requests`
+
 `$ pip3 install beautifulsoup4`
 
 ---
