@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas
 import csv
 
 page = requests.get("http://velocity.uwaterloo.ca/companies/") #fetching page
