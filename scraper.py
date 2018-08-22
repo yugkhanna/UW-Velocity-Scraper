@@ -2,14 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-page = requests.get("http://velocity.uwaterloo.ca/companies/") #fetching page
+page = requests.get("http://velocity.uwaterloo.ca/companies/") #Fetches the page URL
 
-page #checking response
+soup = BeautifulSoup(page.content,'html.parser') #Parses the HTML Page using HTML Parser and displays the content
 
-soup = BeautifulSoup(page.content,'html.parser')
+data = []
 
-data = [] #defining empty list to add data about companies
-#Parser
+companies_html = soup.findAll('li',class_="js-company") #finding tags with <li> with classes <js-company>
+
 for i in range(0,147,1): #147 companies
     company_info = companies_html[i] #indexing through html
     title_companies = company_info.find(class_="company-title companyTitle").get_text() #extracting title by specifying class and extracting it
@@ -18,11 +18,19 @@ for i in range(0,147,1): #147 companies
     data.append(enter_data)
     print ("Title of the Company: ", title_companies)
     print ("Description: ", desc_companies)
-
-#This loop enters data into the list for us to export to csv
+    
+"""
+This loop above indexes through the companies_html page
+and extracts the title and the description of the companies.
+It then uses the empty list and enters data in a singular 
+fashion into the list.
+"""
 
 with open('velocity.csv','w') as file:
     writer = csv.writer(file)
     writer.writerows(data)
-    
-#writes the data into a .csv file
+
+"""
+We use csv module to write the contents of the list into 
+a csv.
+"""
